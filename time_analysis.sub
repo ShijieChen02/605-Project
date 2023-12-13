@@ -1,0 +1,6 @@
+#!/bin/bash
+# run_analysis.sh
+
+module load R
+
+Rscript time_analysis.R $1
