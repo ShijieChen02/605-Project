@@ -1,4 +1,4 @@
-# load_data.R
+# load_data.R This is building linear modl for precipitation and lake area
 
 # Load the necessary libraries
 library(ggplot2)
