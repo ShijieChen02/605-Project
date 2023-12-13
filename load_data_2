@@ -1,0 +1,63 @@
+
+library(ggplot2)
+
+
+data <- read.csv("glcp.csv",nrows = 50000) 
+
+
+str(data)
+
+
+clean_data <- na.omit(data)
+
+
+clean_data$pop_sum <- as.numeric(as.character(clean_data$pop_sum))
+clean_data$total_km2 <- as.numeric(as.character(clean_data$total_km2))
+
+
+clean_data <- subset(clean_data, pop_sum > 0 & total_km2 > 0)
+
+
+correlation <- cor(log(clean_data$pop_sum), log(clean_data$total_km2), use = "complete.obs")
+print(paste("correlation:", correlation))
+
+
+linear_model <- lm(log(total_km2) ~ log(pop_sum), data = clean_data)
+
+
+clean_data$total_km2 <- as.numeric(as.character(clean_data$total_km2))
+
+
+
+
+
+summary(linear_model)
+
+
+plot <- ggplot(clean_data, aes(x = pop_sum, y = total_km2)) +
+  geom_point() +
+  geom_smooth(method = "lm", mapping = aes(x = log(pop_sum), y = log(total_km2)), col = "blue") +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(title = "log(pop_sum)vslog(total_km2)",
+       x = "log(pop_sum)",
+       y = "log(total_km2)") +
+  theme_minimal()
+
+
+plot <- ggplot(clean_data, aes(x = pop_sum, y = total_km2)) +
+  geom_point() +
+  geom_smooth(method = "lm", mapping = aes(x = log(pop_sum), y = log(total_km2)), col = "blue") +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(title = "log(pop_sum)vslog(total_km2)",
+       x = "log(pop_sum)",
+       y = "log(total_km2)") +
+  theme_minimal()
+
+print(plot)
+
+ggsave("population_vs_lake_area_log_scale.pdf", plot = plot, device = "pdf")
+
+
+write.csv(clean_data, "cleaned_data_log_scale.csv", row.names = FALSE)
