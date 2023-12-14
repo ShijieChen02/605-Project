@@ -1,4 +1,4 @@
-#This is about building polynomial and LOESS model with 100,0000 volume of data.
+#This is about making residual analysis
 
 library(ggplot2)
 
