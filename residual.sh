@@ -12,4 +12,4 @@ export RHOME=$PWD/R
 export R_LIBS=$PWD/packages
 
 # run your script
-Rscript model2.R
+Rscript residual.R
