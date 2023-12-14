@@ -6,7 +6,7 @@ library(ggplot2)
 file_path <- "glcp.csv"
 
 
-data <- read.csv(file_path,nrows=15000)
+data <- read.csv(file_path,nrows=1000000)
 
 
 data <- na.omit(data)
